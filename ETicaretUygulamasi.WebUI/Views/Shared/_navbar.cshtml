@@ -1,0 +1,143 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@*<div class="navbar bg-danger navbar-dark navbar-expand-sm ">
+        <div class="container">
+            <a href="/" class="navbar-brand">E Ticaret Sitesi</a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">Products</a>
+                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>
+
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="admin" asp-action="productlist">Admin Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="admin" asp-action="categorylist">Admin Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/role/list">Admin Roles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/role/list">Roles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/user/list">Users</a>
+                        </li>
+
+                    }
+
+                }
+
+
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/manage">
+                            @User.Identity.Name
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/logout">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/register">Register</a>
+                    </li>
+                }
+
+            </ul>
+
+        </div>
+
+    </div>*@
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">AI Products</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/orders">Orders</a>
+                </li>
+                @if (User.IsInRole("admin"))
+                { 
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="admin" asp-action="productlist">Admin Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="admin" asp-action="categorylist">Admin Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/role/list">Admin Roles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/role/list">Roles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/user/list">Users</a>
+                </li>
+                
+                }
+               
+            </ul>
+            <partial name="_search" />
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            @User.Identity.Name
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/logout">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/register">Register</a>
+                    </li>
+                }
+            </ul>
+
+
+        </div>
+    </div>
+</nav>

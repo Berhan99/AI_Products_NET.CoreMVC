@@ -1,0 +1,97 @@
+﻿@model OrderModel
+
+<h1>Checkout</h1>
+ <hr />
+ <div class="row">
+     <div class="col-md-8">
+         <h4 class="mb-3">Checkout Details</h4>
+         <form asp-controller="cart" asp-action="checkout" method="post">
+             <input type="hidden" name="cartId" value="0" />
+             <div class="row mb-3">
+                 <div class="col-md-6">
+                     <label asp-for="@Model.FirstName">Name</label>
+                     <input asp-for="@Model.FirstName" type="text" name="firstname" class="form-control" value="" />
+                 </div>
+                 <div class="col-md-6">
+                     <label asp-for="@Model.LastName">Surname</label>
+                     <input asp-for="@Model.LastName" type="text" name="lastname" class="form-control" value="" />
+                 </div>
+             </div>
+
+             <div class="row mb-3">
+                 <div class="col-md-12">
+                     <label asp-for="@Model.Address">Address</label>
+                     <textarea asp-for="@Model.Address" name="address" class="form-control"></textarea>
+                 </div>
+             </div>
+
+             <div class="row mb-3">
+                 <div class="col-md-4">
+                     <label asp-for="@Model.City">City</label>
+                     <input asp-for="@Model.City" type="text" name="city" class="form-control" value="" />
+                 </div>
+                 <div class="col-md-4">
+                     <label asp-for="@Model.Phone">Phone</label>
+                     <input asp-for="@Model.Phone" type="text" name="phone" class="form-control" value="" />
+                 </div>
+                 <div class="col-md-4">
+                     <label asp-for="@Model.Email">Email</label>
+                     <input asp-for="@Model.Email" type="text" name="email" class="form-control" value="" />
+                 </div>
+             </div>
+             <hr class="mb-3" />
+
+             <h4 class="mb-3">Payment Details</h4>
+             <div class="row mb-3">
+                 <div class="col-md-6">
+                     <label asp-for="@Model.CardName">Name on Card</label>
+                     <input asp-for="@Model.CardName" type="text" name="CardName" class="form-control" value="" />
+                 </div>
+                 <div class="col-md-6">
+                     <label asp-for="@Model.CardNumber">Card Number</label>
+                     <input asp-for="@Model.CardNumber" type="text" name="CardNumber" class="form-control" value="" />
+                 </div>
+             </div>
+             <div class="row mb-3">
+                 <div class="col-md-4">
+                     <label asp-for="@Model.ExpirationMonth">Month</label>
+                     <input asp-for="@Model.ExpirationMonth" type="text" name="ExpirationMonth" class="form-control" value="" />
+                 </div>
+                 <div class="col-md-4">
+                     <label asp-for="@Model.ExpirationYear">Year</label>
+                     <input asp-for="@Model.ExpirationYear" type="text" name="ExpirationYear" class="form-control" value="" />
+                 </div>
+                 <div class="col-md-4">
+                     <label asp-for="@Model.Cvc">Cvc</label>
+                     <input asp-for="@Model.Cvc" type="text" name="CVC" class="form-control" value="" />
+                 </div>
+             </div>
+             <button type="submit" class="btn btn-primary btn-lg btn-block">Approve The Payment</button>
+         </form>
+     </div>
+
+     <div class="col-md-4">
+         <h4 class="mb-3">
+             <span>Summary</span>
+         </h4>
+         
+         <ul class="list-group mb-3">
+
+             @foreach (var item in Model.CartModel.CartItems)
+             {
+                 <li class="list-group-item d-flex justify-content-between">
+                     <div>
+                         <h6>@item.Name</h6>                         
+                     </div>
+                     <span class="text-muted">@item.Price.ToString("c")</span>
+                 </li>
+             }
+
+             
+             <li class="list-group-item d-flex justify-content-between">
+                 <span>Total (TL)</span>
+                 <strong>@Model.CartModel.TotalPrice().ToString("c")</strong>
+             </li>
+         </ul>
+     </div>
+ </div>

@@ -1,0 +1,67 @@
+﻿
+@model ProductDetailModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Details</title>
+    <style>
+        .divInputAdetBilgisi {
+            width: 250px;
+        }
+
+        .btnAddToCart {
+            padding: 15px;
+        }
+
+        .divDescription {
+            margin-top: 5%;
+        }        
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-3">
+            <img src="~/img/@Model.Product.ImageUrl" class="img-fluid" alt="" />
+        </div>
+        <div class="col-md-9">
+            <h1 class="mb-3">@Model.Product.Name</h1><hr />
+            @foreach (var item in Model.Categories)
+            {
+                <a asp-controller="shop" asp-action="list" asp-route-category="@item.Url" class="btn btn-light p-0 mb-3">@item.Name</a>
+            }
+
+            <div class="mb-3">
+                <h4 class="text-dark-emphasis mb-3">
+                    <i class="fas fa-lira-sign"></i>@Model.Product.Price
+                </h4>
+
+                <form method="post" asp-controller="cart" asp-action="AddToCart" style="display:inline;" class="form-inline">
+                    <input type="hidden" name="productId" value="@Model.Product.ProductId" />
+                    <div class="input-group mb-3 divInputAdetBilgisi">
+                        <input type="number" name="quantity" class="form-control" value="1" min="1" step="1" />
+                    </div>
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-dark btnAddToCart">
+                            <i class="fas fa-cart-plus ml-2"> Add To Cart </i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded divDescription">
+            @Html.Raw(Model.Product.Description)
+        </div>
+    </div>
+
+    <script>
+            //$(document).ready(function () {
+            //    alert("merhaba");
+            //})
+    </script>
+</body>
+</html>

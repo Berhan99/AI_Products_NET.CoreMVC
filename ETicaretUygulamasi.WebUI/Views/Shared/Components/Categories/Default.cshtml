@@ -1,0 +1,21 @@
+﻿@*For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860*@
+
+@model List<Category>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
+
+<div class="list-group">
+    <div class="shadow-lg p-3 mb-5 bg-white rounded">
+        @*<a href="/products" class="list-group-item list-group-item-action @(ViewBag.SelectedCategory == null ? "active" :" ")">Tüm Kategoriler</a>*@
+        <a href="/products" class="list-group-item list-group-item-action  @(ViewBag.SelectedCategory == null ? "active" :" ")">All Categories</a>
+
+        @foreach (var item in Model)
+        {
+            <a asp-controller="shop" asp-action="list" asp-route-category="@item.Url" class="list-group-item list-group-item-action @(ViewBag.SelectedCategory == item.Url ? "active" :" ")">
+                @item.Name
+            </a>
+
+        }
+    </div>
+</div>

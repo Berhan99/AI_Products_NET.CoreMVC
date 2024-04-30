@@ -1,0 +1,74 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model CategoryListViewModel
+
+
+<style>
+    .fa-check-circle {
+        color: green;
+    }
+
+    .fa-times-circle {
+        color: red;
+    }
+</style>
+
+<div class="container mt-lg-5">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Admin Categories</h1>
+            <hr />
+            <a class="btn btn-primary btn-sm mb-3" href="/admin/categories/create">Add Category</a>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td style="width:30px;">Id</td>
+                        <td style="width:100px;">Name</td>
+                        <td style="width:100px;">Url</td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Categories.Count > 0)
+                    {
+                        @foreach (var item in Model.Categories)
+                        {
+                            <tr>
+                                <td>@item.CategoryId</td>
+                                <td>@item.Name</td>
+                                <td>@item.Url</td>
+
+                                <td>
+                                    <a href="/admin/categories/@item.CategoryId" class="btn btn-primary btn-sm mr-2">Edit</a>
+
+                                    <form action="/admin/deletecategory" method="post" style="display:inline">
+                                        <input type="hidden" name="categoryId" value="@item.CategoryId" />
+                                        <button type="submit" href="#" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="alert alert-warning">
+                                <h3>No Categories</h3>
+                            </td>
+                        </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

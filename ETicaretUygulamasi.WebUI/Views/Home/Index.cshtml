@@ -1,0 +1,442 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model ProductListViewModels
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>List Viewi</title>
+    @section Scripts{
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    }
+
+    <style>
+        .popular {
+            color: green;
+            font-weight: 700;
+        }
+
+        main {
+            margin-top: 50px;
+        }
+    </style>
+    <style>
+        #slider {
+            margin: 0 auto;
+            width: -webkit-fill-available;
+            max-width: 100%;
+            text-align: center;
+            width: 1400px;
+        }
+
+            #slider input[type=radio] {
+                display: none;
+            }
+
+            #slider label {
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+        #slides {
+            padding: 10px;
+            border: 3px solid #ccc;
+            background: #fff;
+            position: relative;
+            z-index: 1;
+            height: -webkit-fill-available;
+        }
+
+        #overflow {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        #slide1:checked ~ #slides .inner {
+            margin-left: 0;
+        }
+
+        #slide2:checked ~ #slides .inner {
+            margin-left: -100%;
+        }
+
+        #slide3:checked ~ #slides .inner {
+            margin-left: -200%;
+        }
+
+        #slide4:checked ~ #slides .inner {
+            margin-left: -300%;
+        }
+
+        #slides .inner {
+            transition: margin-left 800ms cubic-bezier(0.770,0.000,0.175,1.000);
+            width: 400%;
+            line-height: 0;
+            height: 300px;
+            height: 500px;
+        }
+
+        #slides .slide {
+            width: 25%;
+            float: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #fff;
+        }
+
+        #slides .slide_1 {
+            background: #00171F;
+        }
+
+        #slides .slide_2 {
+            background: #00171F;
+        }
+
+        #slides .slide_3 {
+            background: #00171F;
+        }
+
+        #slides .slide_4 {
+            background: #00171F;
+        }
+
+        #controls {
+            height: 50px;
+            margin: -180px 0 0 0;
+            width: 100%;
+            z-index: 3;
+            position: relative;
+        }
+
+            #controls label {
+                transition: opacity 0.2s ease-out;
+                display: none;
+                width: 50px;
+                height: 50px;
+                opacity: .4;
+            }
+
+                #controls label:hover {
+                    opacity: 1;
+                }
+
+        #slide1:checked ~ #controls label:nth-child(2),
+        #slide2:checked ~ #controls label:nth-child(3),
+        #slide3:checked ~ #controls label:nth-child(4),
+        #slide4:checked ~ #controls label:nth-child(1) {
+            background: url( https://www.reshot.com/preview-assets/icons/UCA8NGYZDJ/right-arrow-UCA8NGYZDJ.svg ) no-repeat;
+            float: right;
+            margin: 0 -50px 0 0;
+            display: block;
+        }
+       
+
+        #slide1:checked ~ #controls label:nth-last-child(1),
+        #slide2:checked ~ #controls label:nth-last-child(4),
+        #slide3:checked ~ #controls label:nth-last-child(3),
+        #slide4:checked ~ #controls label:nth-last-child(2) {
+            background: url( https://www.reshot.com/preview-assets/icons/UZDAC2LESG/arrow-left-UZDAC2LESG.svg ) no-repeat;
+            float: left;
+            margin: 0 0 0 -50px;
+            display: block;
+        }
+
+        #bullets {
+            margin: 150px 0 0;
+            text-align: center;
+        }
+
+            #bullets label {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 100%;
+                background: #ccc;
+                margin: 0 10px;
+            }
+
+        #slide1:checked ~ #bullets label:nth-child(1),
+        #slide2:checked ~ #bullets label:nth-child(2),
+        #slide3:checked ~ #bullets label:nth-child(3),
+        #slide4:checked ~ #bullets label:nth-child(4) {
+            background: #444;
+        }
+    </style>
+
+
+    <style>
+
+        .ffbox {
+            display: flex;
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            border: 3px solid #e4e4e9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 10px;
+            flex-wrap: wrap;
+        }
+
+        .ffbox1 {
+            flex: 1;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .ffbox1 label {
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            .ffbox1 input,
+            .ffbox1 textarea {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 16px;
+                box-sizing: border-box;
+                border-radius: 15px;
+                background-color: #dcdce1;
+                border: none;
+            }
+
+            .ffbox1 textarea {
+                resize: vertical;
+            }
+
+        .ffbox1 {
+            margin-bottom: 16px;
+        }
+
+            .ffbox1 label {
+                margin-right: 16px;
+            }
+
+        .map-div {
+            flex: 1;
+            background-color: #eee;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            /*background-color: rgb(105, 152, 111);*/
+            background-color: #292b2c;
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            border: #a2c2ee;
+        }
+
+
+        .map-div iframe {
+            border: 0;
+            padding: 10px;
+        }
+
+        .gfg {
+            text-align: center;
+            color: #292b2c;
+        }
+
+        .map-div {
+            background-color: rgb(152, 178, 234);
+        }
+    </style>
+
+</head>
+<body>
+    <div class="row mb-lg-2">
+        <partial name="_header" />
+    </div>
+
+    <div id="slider">
+        @*slider başı*@
+        <input type="radio" name="slider" id="slide1" checked />
+        <input type="radio" name="slider" id="slide2" />
+        <input type="radio" name="slider" id="slide3" />
+        <input type="radio" name="slider" id="slide4" />
+
+        <div id="slides">
+            @*slides başı*@
+            <div id="overflow">
+                <div class="inner">
+
+                    <div class="slide slide_1">
+                        <div class="slide-content">                            
+                            <img src="~/img/1_osBgFcPnhSeLhYCz0e2asw.jpg" alt="Alternate Text" />
+                        </div>
+                    </div>
+
+                    <div class="slide slide_2">
+                        <div class="slide-content">                           
+                            <img src="~/img/565012626_yapay_zeka_ai_nedir_nasil_calisir.jpg" alt="Alternate Text" />
+                        </div>
+                    </div>
+
+                    <div class="slide slide_3">
+                        <div class="slide-content">                            
+                            <img src="~/img/theBClog_slider_gorseli_yapayzeka.png" alt="Alternate Text" />
+                        </div>
+                    </div>
+
+                    <div class="slide slide_4">
+                        <div class="slide-content">                            
+                            <img src="~/img/yapay-zeka-ai-insan-1.jpg" alt="Alternate Text" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>@*slides sonu*@
+
+        <div id="controls">
+            @*controls bası*@
+            <label for="slide1"></label>
+            <label for="slide2"></label>
+            <label for="slide3"></label>
+            <label for="slide4"></label>
+        </div> @*controls sonu*@
+
+        <div id="bullets">
+            @*bullets bası*@
+            <label for="slide1"></label>
+            <label for="slide2"></label>
+            <label for="slide3"></label>
+            <label for="slide4"></label>
+        </div> @*bullets sonu*@
+
+    </div>@*slider sonu*@
+
+
+<main>
+    <div class="row">
+        @*<div class="col-md-3">
+                @await Component.InvokeAsync("Categories")
+            </div>*@
+
+        <div class="col-md-12">
+            @if (Model.Products.Count == 0)
+            {
+                @await Html.PartialAsync("_noProduct")
+            }
+            else
+            {
+                <div class="row">
+
+                    @foreach (Product product in Model.Products)
+                    {
+                        <div class="col-md-3 mt-3">
+                            @await Html.PartialAsync("_product", product)
+                        </div>
+
+                    }
+                </div>
+
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="ffbox">
+            <div class="ffbox1">
+                <h1 class="gfg">AI Products</h1>
+                <h2>Contact Us</h2>
+
+                <label for="fullName">
+                    <i class="fa fa-solid fa-user"
+                       style="margin: 2px;">
+                    </i> Full Name:
+                </label>
+                <input type="text"
+                       id="fullName"
+                       name="fullName" required>
+
+                <label for="email">
+                    <i class="fa fa-solid fa-envelope"
+                       style="margin: 2px;">
+                    </i>
+                    Email Address:
+
+                </label>
+                <input type="email"
+                       id="email"
+                       name="email" required>
+
+                <label for="mobile">
+                    <i class=" fa fa-solid fa-phone"
+                       style="margin: 2px;">
+                    </i>
+                    Contact No:
+                </label>
+                <input type="tel"
+                       id="mobile"
+                       name="mobile" required>
+
+                <label for="msg">
+                    <i class=" fa fa-solid fa-comment"
+                       style="margin: 2px;">
+                    </i>
+                    Write Message:
+                </label>
+                <textarea id="msg"
+                          name="msg"
+                          rows="5" required> 
+                </textarea>
+
+                <button type="submit">
+                    Submit
+                </button>
+
+            </div>
+            <div class="map-div">
+
+                @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.1602802684192!2d77.39638073968018!3d28.504825075835775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sGeeksforGeeks%20%7C%20Coding%20Classes!5e0!3m2!1sen!2sin!4v1702963476861!5m2!1sen!2sin"
+                            width="725"
+                            height="100%"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>*@
+
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192697.88850554352!2d28.847373148811315!3d41.00546324292603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1712436416388!5m2!1str!2str" width="725"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+            </div>
+        </div>
+    </div>
+
+    @section footer{
+        <div class="altFooter">
+                <div class="footerText">
+                    <div>
+                        <span>AI Products | 2024</span>
+                    </div>
+                    <div>
+                        <span>Based Turkey, Istanbul</span>
+                    </div>
+                </div>
+            </div>
+    }
+
+</main>
+
+
+</body>
+</html>

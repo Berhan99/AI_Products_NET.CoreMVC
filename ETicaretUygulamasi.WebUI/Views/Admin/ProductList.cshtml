@@ -1,0 +1,105 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model ProductListViewModels
+
+
+
+
+
+<style>
+    .fa-check-circle {
+        color: green;
+    }
+
+    .fa-times-circle {
+        color: red;
+    }
+</style>
+
+<div class="container mt-lg-5">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Admin Products</h1>
+            <hr />
+            <a class="btn btn-primary btn-sm mb-3" href="/admin/products/create">Add Products</a>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td style="width:30px;">Id</td>
+                        <td style="width:100px;">Image</td>
+                        <td>Name</td>
+                        <td style="width:20px;">Price</td>
+                        <td style="width:20px;">Anasayfa</td>
+                        <td style="width:20px;">Onaylı</td>
+                        <td style="width:150px;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Products.Count > 0)
+                    {
+                        @foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td>@item.ProductId</td>
+                                <td><img src="~/img/@item.ImageUrl" width="80" /></td>
+                                <td>@item.Name</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    @if (item.IsHome)
+                                    {
+                                        <i class="fas fa-check-circle"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-times-circle"></i>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.IsApproved)
+                                    {
+                                        <i class="fas fa-check-circle"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-times-circle"></i>
+                                    }
+                                </td>
+
+
+                                <td>
+                                    <a href="/admin/products/@item.ProductId" class="btn btn-primary btn-sm mr-2">Edit</a>
+
+                                    <form action="/admin/deleteproduct" method="post" style="display:inline">
+                                        <input type="hidden" name="productId" value="@item.ProductId" />
+                                        <button type="submit" href="#" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="alert alert-warning">
+                                <h3>No Products</h3>
+                            </td>
+                        </tr>
+                        @*<div class="alert alert-warning">
+                                <h3>No Products</h3>
+                            </div>*@
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>

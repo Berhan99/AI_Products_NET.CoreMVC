@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Entities.Product 
+@{ 
+   
+}
+<style>
+    .form-group{
+        padding:10px 0;
+    }    
+</style>
+<form  method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input asp-for="@Model.Name" value="@Model.Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Price">Price</label>
+        <input asp-for="@Model.Price" value="@Model.Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea asp-for="@Model.Description" value="@Model.Description" class="form-control" style="resize:none"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label for="ImageUrl">ImageUrl</label>
+        <input asp-for="@Model.ImageUrl" value="@Model.ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+
+    </div>
+    @*<div class="form-group">
+        <label for="CategoryId">CategoryId</label>
+        <select asp-for="@Model.CategoryId" asp-items="@ViewBag.Categories" class="form-control mt-3">
+            <option value="0" selected="selected" disabled="disabled">Seçiniz..</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+    </div>*@
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>

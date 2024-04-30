@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Product
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 15vw;
+        object-fit: contain;
+    }
+
+    .cardBtns {
+        display: flex;
+        padding: 10px;
+        justify-content: space-between;
+    }
+    
+    .detailsBtn{
+        width:max-content;
+    }
+    .addToCartBtn{
+        width:fit-content;
+    }
+</style>
+<div class="shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="card">
+        <img class="card-img-top" src="~/img/@Model.ImageUrl" alt="Alternate Text" />
+        <div class="card-body">
+            <h5>@Model.Name</h5>
+            <small class="text-muted">
+                <i class="fas fa-lira-sign"></i>@Model.Price
+            </small>
+            <p class="card-text">@Html.Raw(Model.Description)</p>
+        </div>
+        <div class="cardBtns">
+            <a class="btn btn-dark detailsBtn" asp-controller="shop" asp-action="details" asp-route-url="@Model.Url">Details</a>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form method="post" asp-controller="cart" asp-action="AddToCart" style="margin:0px">
+                    <input type="hidden" name="productId" value="@Model.ProductId" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <button type="submit" class="btn btn-dark addToCartBtn">Add To Cart</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>

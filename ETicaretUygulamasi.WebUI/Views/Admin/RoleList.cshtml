@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<IdentityRole>
+
+
+
+
+
+<style>
+    .fa-check-circle {
+        color: green;
+    }
+
+    .fa-times-circle {
+        color: red;
+    }
+</style>
+
+<div class="container mt-lg-5">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Role List</h1>
+            <hr />
+            <a class="btn btn-primary btn-sm mb-3" href="/admin/role/create">Create Role</a>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td style="width:250px;">Id</td>
+                        <td>Role Name</td>
+                        <td style="width:160px;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>
+                                    <a href="/admin/role/@item.Id" class="btn btn-primary btn-sm mr-2">Edit</a>
+
+                                    <form action="/admin/role/delete" method="post" style="display:inline">
+                                        <input type="hidden" name="RoleId" value="@item.Id" />
+                                        <button type="submit" href="#" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="alert alert-warning">
+                                <h3>No Roles</h3>
+                            </td>
+                        </tr>
+                        @*<div class="alert alert-warning">
+                                <h3>No Products</h3>
+                            </div>*@
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

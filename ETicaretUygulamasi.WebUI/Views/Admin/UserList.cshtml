@@ -1,0 +1,95 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<User>
+
+
+@section Css{
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>    
+<script>
+        //let table = new DataTable('#myTable');
+
+        $(document).ready(function () {
+            $('#myTable').DataTable()
+        })
+    </script>
+}
+
+
+<style>
+    .fa-check-circle {
+        color: green;
+    }
+
+    .fa-times-circle {
+        color: red;
+    }
+</style>
+
+<div class="container mt-lg-5">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>User List</h1>
+            <hr />
+            <a class="btn btn-primary btn-sm mb-3" href="/admin/user/create">Create User</a>
+            <hr />
+            <table id="myTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>User Name</td>
+                        <td>First Name</td>
+                        <td>Last Name</td>
+                        <td>Email</td>
+                        <td>EmailConfirmed</td>
+                        <td>aaa</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr class="@(item.EmailConfirmed ? "" : "table-warning")">
+                                <td>@item.UserName</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.Email</td>
+                                <td>@item.EmailConfirmed</td>
+                                <td>
+                                    <a href="/admin/user/@item.Id" class="btn btn-primary btn-sm mr-2">Edit</a>
+
+                                    <form action="/admin/role/delete" method="post" style="display:inline">
+                                        <input type="hidden" name="UserId" value="@item.Id" />
+                                        <button type="submit" href="#" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="alert alert-warning">
+                                <h3>No Users</h3>
+                            </td>
+                        </tr>
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
