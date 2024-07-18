@@ -25,7 +25,7 @@ This project is a work in progress and may have areas that need improvement and 
 ## Getting Started
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/ecommerce-website.git
+    git clone https://github.com/berhan99/AI_Products_NET.CoreMVC.git
     ```
 2. **Navigate to the project directory**:
     ```bash
