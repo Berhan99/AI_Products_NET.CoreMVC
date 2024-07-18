@@ -29,7 +29,7 @@ This project is a work in progress and may have areas that need improvement and 
     ```
 2. **Navigate to the project directory**:
     ```bash
-    cd ecommerce-website
+    cd AI_Products_NET.CoreMVC
     ```
 3. **Build the project**:
     ```bash
